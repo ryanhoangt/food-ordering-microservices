@@ -32,7 +32,7 @@ public class CreateOrderRequestHandler {
         log.info("Order is initiated with id: {}", orderCreatedEvent.getOrder().getId().getIdValue());
         // publish event, ensure atomicity using Outbox pattern
         orderCreatedPaymentRequestMsgPublisher.publish(orderCreatedEvent);
-        return orderDataMapper.fromOrderToResponseDTO(orderCreatedEvent.getOrder());
+        return orderDataMapper.fromOrderToCreateOrderResponseDTO(orderCreatedEvent.getOrder(), "Order created successfully");
     }
 
 }
