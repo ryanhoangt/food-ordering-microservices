@@ -2,7 +2,6 @@ package com.foodorder.service.order.domain.port;
 
 import com.foodorder.service.order.domain.OrderDomainService;
 import com.foodorder.service.order.domain.dto.create.CreateOrderRequestDTO;
-import com.foodorder.service.order.domain.dto.create.CreateOrderResponseDTO;
 import com.foodorder.service.order.domain.entity.Customer;
 import com.foodorder.service.order.domain.entity.Order;
 import com.foodorder.service.order.domain.entity.Restaurant;
@@ -21,7 +20,7 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-public class CreateOrderRequestHandler {
+public class CreateOrderHelper {
 
     private final OrderDomainService orderDomainService;
     private final OrderRepository orderRepository;
@@ -29,11 +28,11 @@ public class CreateOrderRequestHandler {
     private final RestaurantRepository restaurantRepository;
     private final OrderDataMapper orderDataMapper;
 
-    public CreateOrderRequestHandler(OrderDomainService orderDomainService,
-                                     OrderRepository orderRepository,
-                                     CustomerRepository customerRepository,
-                                     RestaurantRepository restaurantRepository,
-                                     OrderDataMapper orderDataMapper) {
+    public CreateOrderHelper(OrderDomainService orderDomainService,
+                             OrderRepository orderRepository,
+                             CustomerRepository customerRepository,
+                             RestaurantRepository restaurantRepository,
+                             OrderDataMapper orderDataMapper) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
@@ -42,26 +41,24 @@ public class CreateOrderRequestHandler {
     }
 
     @Transactional
-    public CreateOrderResponseDTO createOrder(CreateOrderRequestDTO requestDTO) {
+    public OrderCreatedEvent validateAndPersistOrder(CreateOrderRequestDTO requestDTO) {
         checkCustomer(requestDTO.getCustomerId());
         Restaurant validRestaurant = checkRestaurantAndGet(requestDTO);
         Order reqOrder = orderDataMapper.fromRequestDTOToOrder(requestDTO);
 
         OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(reqOrder, validRestaurant);
-        Order savedOrder = saveOrder(reqOrder);
-        log.info("Order is initiated with id: {}", savedOrder.getId().getIdValue());
-
-        return orderDataMapper.fromOrderToResponseDTO(savedOrder);
+        saveOrder(reqOrder);
+        log.info("Order is initiated with id: {}", orderCreatedEvent.getOrder().getId().getIdValue());
+        return orderCreatedEvent;
     }
 
-    private Order saveOrder(Order reqOrder) {
+    private void saveOrder(Order reqOrder) {
         Order savedOrder = orderRepository.save(reqOrder);
         if (savedOrder == null) {
             log.error("Could not save order!");
             throw new OrderDomainException("Could not save order!");
         }
         log.info("Order is saved with id: {}", savedOrder.getId().getIdValue());
-        return savedOrder;
     }
 
     private Restaurant checkRestaurantAndGet(CreateOrderRequestDTO requestDTO) {
