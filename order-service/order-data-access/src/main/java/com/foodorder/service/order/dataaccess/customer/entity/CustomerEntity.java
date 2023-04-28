@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor // for proxying with reflection
 @AllArgsConstructor // for Builder pattern
-@Table(name = "order_customers_m_view", schema = "customer")
+@Table(name = "order_customer_m_view", schema = "customer")
 @Entity
 public class CustomerEntity {
     @Id

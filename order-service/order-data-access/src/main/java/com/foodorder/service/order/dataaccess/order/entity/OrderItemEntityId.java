@@ -1,8 +1,9 @@
 package com.foodorder.service.order.dataaccess.order.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class OrderItemEntityId {
+public class OrderItemEntityId implements Serializable {
 
     private Long id;
     private OrderEntity order;
