@@ -8,6 +8,7 @@
         <module>common</module>
         <module>infrastructure</module>
         <module>customer-service</module>
+        <module>payment-service</module>
     </modules>
 
     <parent>
@@ -52,7 +53,7 @@
             <dependency>
                 <groupId>com.foodorder</groupId>
                 <artifactId>order-data-access</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.foodorder</groupId>
@@ -94,6 +95,26 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.foodorder</groupId>
+                <artifactId>payment-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.foodorder</groupId>
+                <artifactId>payment-domain-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.foodorder</groupId>
+                <artifactId>payment-data-access</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.foodorder</groupId>
+                <artifactId>payment-messaging</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

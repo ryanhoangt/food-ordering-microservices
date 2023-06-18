@@ -1,5 +1,6 @@
 package com.foodorder.service.order.domain;
 
+import com.foodorder.domain.event.publisher.DomainEventPublisher;
 import com.foodorder.service.order.domain.entity.Order;
 import com.foodorder.service.order.domain.entity.Restaurant;
 import com.foodorder.service.order.domain.event.OrderCancelInitiatedEvent;
@@ -16,13 +17,13 @@ import java.util.List;
  */
 public interface OrderDomainService {
 
-    OrderCreatedEvent validateAndInitiateOrder(Order order, Restaurant restaurant);
+    OrderCreatedEvent validateAndInitiateOrder(Order order, Restaurant restaurant, DomainEventPublisher<OrderCreatedEvent, Order> orderCreatedEventPublisher);
 
-    OrderPaidEvent payOrder(Order order);
+    OrderPaidEvent payOrder(Order order, DomainEventPublisher<OrderPaidEvent, Order> orderPaidEventPublisher);
 
     void approveOrder(Order order);
 
-    OrderCancelInitiatedEvent cancelOrderPayment(Order order, List<String> failureMessages);
+    OrderCancelInitiatedEvent cancelOrderPayment(Order order, List<String> failureMessages, DomainEventPublisher<OrderCancelInitiatedEvent, Order> orderCancelInitiatedEventPublisher);
 
     void cancelOrder(Order order, List<String> failureMessages);
 }

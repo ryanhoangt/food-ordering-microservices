@@ -1,6 +1,7 @@
 package com.foodorder.service.order.messaging.publisher.kafka;
 
 import com.foodorder.kafka.order.avro.model.PaymentRequestAvroModel;
+import com.foodorder.kafka.producer.KafkaMsgHelper;
 import com.foodorder.kafka.producer.service.KafkaProducer;
 import com.foodorder.service.order.domain.config.OrderServiceConfigData;
 import com.foodorder.service.order.domain.event.OrderCreatedEvent;
@@ -16,16 +17,16 @@ public class OrderCreatedKafkaMsgPublisher implements OrderCreatedPaymentRequest
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
-    private final OrderKafkaMsgHelper orderKafkaMsgHelper;
+    private final KafkaMsgHelper kafkaMsgHelper;
 
     public OrderCreatedKafkaMsgPublisher(OrderMessagingDataMapper orderMessagingDataMapper,
                                          OrderServiceConfigData orderServiceConfigData,
                                          KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer,
-                                         OrderKafkaMsgHelper orderKafkaMsgHelper) {
+                                         KafkaMsgHelper kafkaMsgHelper) {
         this.orderMessagingDataMapper = orderMessagingDataMapper;
         this.orderServiceConfigData = orderServiceConfigData;
         this.kafkaProducer = kafkaProducer;
-        this.orderKafkaMsgHelper = orderKafkaMsgHelper;
+        this.kafkaMsgHelper = kafkaMsgHelper;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class OrderCreatedKafkaMsgPublisher implements OrderCreatedPaymentRequest
             kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(),
                     orderId,
                     model,
-                    orderKafkaMsgHelper.getCallback(
+                    kafkaMsgHelper.getCallback(
                             orderServiceConfigData.getPaymentRequestTopicName(),
                             model,
                             orderId,
