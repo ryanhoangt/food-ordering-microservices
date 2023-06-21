@@ -42,5 +42,9 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.foodorder</groupId>
+            <artifactId>saga</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-## SAGA Choreography Diagram
+## SAGA Orchestration Diagram
 ![](https://github.com/ryanhoangt/food-ordering-microservices/blob/main/docs/saga-choreography-diagram.png)
 
 ## Module Dependencies Graph
