@@ -3,18 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>food-ordering-system</artifactId>
+        <artifactId>restaurant-service</artifactId>
         <groupId>com.foodorder</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common</artifactId>
+    <artifactId>restaurant-domain</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-domain</module>
-        <module>common-application</module>
-        <module>common-data-access</module>
+        <module>restaurant-domain-core</module>
+        <module>restaurant-domain-application-service</module>
     </modules>
 
     <properties>
