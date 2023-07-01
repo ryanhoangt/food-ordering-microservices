@@ -8,9 +8,11 @@ import com.foodorder.service.payment.domain.dto.PaymentRequestDTO;
 import com.foodorder.service.payment.domain.event.PaymentCancelledEvent;
 import com.foodorder.service.payment.domain.event.PaymentCompletedEvent;
 import com.foodorder.service.payment.domain.event.PaymentFailedEvent;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Component
 public class PaymentMessagingDataMapper {
 
     public PaymentResponseAvroModel fromPaymentCompletedEventToPaymentResponseAvroModel(PaymentCompletedEvent paymentCompletedEvent) {

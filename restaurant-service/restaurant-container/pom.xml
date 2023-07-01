@@ -14,5 +14,47 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.foodorder</groupId>
+            <artifactId>restaurant-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.foodorder</groupId>
+            <artifactId>restaurant-domain-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.foodorder</groupId>
+            <artifactId>restaurant-data-access</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.foodorder</groupId>
+            <artifactId>restaurant-messaging</artifactId>
+        </dependency>
+    </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>${project.groupId}/restaurant.service:${project.version}</name>
+                    </image>
+                    <docker>
+                        <host>unix:///Users/hoang/.docker/run/docker.sock</host>
+                    </docker>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build-image</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

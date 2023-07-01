@@ -51,6 +51,9 @@
                     <image>
                         <name>${project.groupId}/order.service:${project.version}</name>
                     </image>
+                    <docker>
+                        <host>unix:///Users/hoang/.docker/run/docker.sock</host>
+                    </docker>
                 </configuration>
                 <executions>
                     <execution>

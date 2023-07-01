@@ -3,10 +3,7 @@ package com.foodorder.service.restaurant.dataaccess.entity;
 import com.foodorder.domain.valueobject.RestaurantValidationStatus;
 import lombok.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
@@ -14,6 +11,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(schema = "restaurant", name = "order_approval")
 public class OrderApprovalEntity {
 

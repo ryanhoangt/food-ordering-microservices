@@ -18,7 +18,7 @@ CREATE TABLE "payment".payments
     price numeric(10, 2) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     status payment_status NOT NULL,
-    CONSTRAINT payments_pkey PRIMARY KEY (id);
+    CONSTRAINT payments_pkey PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS "payment".credit_entry CASCADE;
