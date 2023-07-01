@@ -46,5 +46,13 @@
             <groupId>com.foodorder</groupId>
             <artifactId>saga</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.foodorder</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
     </dependencies>
 </project>
