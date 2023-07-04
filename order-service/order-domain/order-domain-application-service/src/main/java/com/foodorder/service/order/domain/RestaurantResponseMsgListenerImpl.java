@@ -28,9 +28,8 @@ public class RestaurantResponseMsgListenerImpl implements RestaurantResponseMsgL
 
     @Override
     public void orderRejectedHandler(RestaurantResponseDTO responseDTO) {
-        OrderCancelInitiatedEvent domainEvent = orderApprovalSaga.rollback(responseDTO);
-        log.info("Publishing order cancelled event for order id: {} with failure messages: {}",
+        orderApprovalSaga.rollback(responseDTO);
+        log.info("Order Approval Saga rollback operation is completed for order id: {} with failure messages: {}",
                 responseDTO.getOrderId(), String.join(FAILURE_MESSAGE_DELIMITER, responseDTO.getFailureMessages()));
-        domainEvent.fire();
     }
 }

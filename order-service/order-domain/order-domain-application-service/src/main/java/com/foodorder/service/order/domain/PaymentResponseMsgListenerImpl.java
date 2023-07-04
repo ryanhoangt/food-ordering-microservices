@@ -22,9 +22,8 @@ public class PaymentResponseMsgListenerImpl implements PaymentResponseMsgListene
 
     @Override
     public void paymentCompletedHandler(PaymentResponseDTO responseDTO) {
-        OrderPaidEvent domainEvent = orderPaymentSaga.process(responseDTO);
-        log.info("Publishing OrderPaidEvent for order id: {}", responseDTO.getOrderId());
-        domainEvent.fire();
+        orderPaymentSaga.process(responseDTO);
+        log.info("Order Payment Saga process operation is completed for order id: {}", responseDTO.getOrderId());
     }
 
     @Override
