@@ -10,6 +10,7 @@ import com.foodorder.service.order.domain.entity.Order;
 import com.foodorder.service.order.domain.entity.OrderItem;
 import com.foodorder.service.order.domain.entity.Product;
 import com.foodorder.service.order.domain.entity.Restaurant;
+import com.foodorder.service.order.domain.event.OrderCancelInitiatedEvent;
 import com.foodorder.service.order.domain.event.OrderCreatedEvent;
 import com.foodorder.service.order.domain.event.OrderPaidEvent;
 import com.foodorder.service.order.domain.outbox.model.approval.OrderApprovalEventPayload;
@@ -89,6 +90,16 @@ public class OrderDataMapper {
                 .price(orderCreatedEvent.getOrder().getPrice().getAmount())
                 .createdAt(orderCreatedEvent.getCreatedAt())
                 .paymentOrderStatus(PaymentOrderStatus.PENDING.name())
+                .build();
+    }
+
+    public OrderPaymentEventPayload fromOrderCancelInitiatedEventToOrderPaymentEventPayload(OrderCancelInitiatedEvent orderCancelInitiatedEvent) {
+        return OrderPaymentEventPayload.builder()
+                .customerId(orderCancelInitiatedEvent.getOrder().getCustomerId().getIdValue().toString())
+                .orderId(orderCancelInitiatedEvent.getOrder().getId().getIdValue().toString())
+                .price(orderCancelInitiatedEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderCancelInitiatedEvent.getCreatedAt())
+                .paymentOrderStatus(PaymentOrderStatus.CANCELLED.name())
                 .build();
     }
 
