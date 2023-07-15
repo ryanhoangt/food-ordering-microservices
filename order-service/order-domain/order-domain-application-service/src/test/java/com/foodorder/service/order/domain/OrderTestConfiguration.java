@@ -1,6 +1,6 @@
 package com.foodorder.service.order.domain;
 
-import com.foodorder.service.order.domain.port.output.message.publisher.payment.PaymentRequestOuboxMsgPublisher;
+import com.foodorder.service.order.domain.port.output.message.publisher.payment.PaymentRequestOutboxMsgPublisher;
 import com.foodorder.service.order.domain.port.output.message.publisher.restaurant.RestaurantRequestOutboxMsgPublisher;
 import com.foodorder.service.order.domain.port.output.repository.*;
 import org.mockito.Mockito;
@@ -15,8 +15,8 @@ public class OrderTestConfiguration {
      */
 
     @Bean
-    public PaymentRequestOuboxMsgPublisher paymentRequestOuboxMsgPublisher() {
-        return Mockito.mock(PaymentRequestOuboxMsgPublisher.class);
+    public PaymentRequestOutboxMsgPublisher paymentRequestOutboxMsgPublisher() {
+        return Mockito.mock(PaymentRequestOutboxMsgPublisher.class);
     }
 
     @Bean

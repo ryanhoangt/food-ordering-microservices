@@ -4,7 +4,7 @@ import com.foodorder.outbox.OutboxScheduler;
 import com.foodorder.outbox.OutboxStatus;
 import com.foodorder.saga.SagaStatus;
 import com.foodorder.service.order.domain.outbox.model.payment.OrderPaymentOutboxMessage;
-import com.foodorder.service.order.domain.port.output.message.publisher.payment.PaymentRequestOuboxMsgPublisher;
+import com.foodorder.service.order.domain.port.output.message.publisher.payment.PaymentRequestOutboxMsgPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class PaymentOutboxScheduler implements OutboxScheduler {
 
     private final PaymentOutboxHelper paymentOutboxHelper;
-    private final PaymentRequestOuboxMsgPublisher paymentRequestOuboxMsgPublisher;
+    private final PaymentRequestOutboxMsgPublisher paymentRequestOutboxMsgPublisher;
 
     public PaymentOutboxScheduler(PaymentOutboxHelper paymentOutboxHelper,
-                                  PaymentRequestOuboxMsgPublisher paymentRequestOuboxMsgPublisher) {
+                                  PaymentRequestOutboxMsgPublisher paymentRequestOutboxMsgPublisher) {
         this.paymentOutboxHelper = paymentOutboxHelper;
-        this.paymentRequestOuboxMsgPublisher = paymentRequestOuboxMsgPublisher;
+        this.paymentRequestOutboxMsgPublisher = paymentRequestOutboxMsgPublisher;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class PaymentOutboxScheduler implements OutboxScheduler {
                             .collect(Collectors.joining(",")));
 
             outboxMessages.forEach(outboxMessage ->
-                    paymentRequestOuboxMsgPublisher.publish(outboxMessage, this::updateOutboxStatus));
+                    paymentRequestOutboxMsgPublisher.publish(outboxMessage, this::updateOutboxStatus));
             log.info("{} OrderPaymentOutboxMessage sent to message bus!", outboxMessages.size());
         }
     }

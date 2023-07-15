@@ -9,6 +9,7 @@ import com.foodorder.service.order.domain.entity.Order;
 import com.foodorder.service.order.domain.event.OrderCancelInitiatedEvent;
 import com.foodorder.service.order.domain.event.OrderCreatedEvent;
 import com.foodorder.service.order.domain.event.OrderPaidEvent;
+import com.foodorder.service.order.domain.outbox.model.payment.OrderPaymentEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -86,6 +87,18 @@ public class OrderMessagingDataMapper {
                 .createdAt(avroModel.getCreatedAt())
                 .validationStatus(RestaurantValidationStatus.valueOf(avroModel.getValidationStatus().name()))
                 .failureMessages(avroModel.getFailureMessages())
+                .build();
+    }
+
+    public PaymentRequestAvroModel fromOrderPaymentEventToPaymentRequestAvroModel(String sagaId, OrderPaymentEventPayload orderPaymentEventPayload) {
+        return PaymentRequestAvroModel.newBuilder()
+                .setId(UUID.randomUUID().toString())
+                .setSagaId(sagaId)
+                .setCustomerId(orderPaymentEventPayload.getCustomerId())
+                .setOrderId(orderPaymentEventPayload.getOrderId())
+                .setPrice(orderPaymentEventPayload.getPrice())
+                .setCreatedAt(orderPaymentEventPayload.getCreatedAt().toInstant())
+                .setPaymentOrderStatus(PaymentOrderStatus.valueOf(orderPaymentEventPayload.getPaymentOrderStatus()))
                 .build();
     }
 }

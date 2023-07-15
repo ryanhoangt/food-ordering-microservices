@@ -5,7 +5,7 @@ import com.foodorder.service.order.domain.outbox.model.payment.OrderPaymentOutbo
 
 import java.util.function.BiConsumer;
 
-public interface PaymentRequestOuboxMsgPublisher {
+public interface PaymentRequestOutboxMsgPublisher {
 
     void publish(OrderPaymentOutboxMessage orderPaymentOutboxMessage,
                  BiConsumer<OrderPaymentOutboxMessage, OutboxStatus> outboxCallback); // for updating the outbox table
